@@ -110,7 +110,7 @@ export default function AudioDownloader() {
       ) : null}
 
       {result?.success && result.audioUrl ? (
-        <div className="grid gap-6 xl:grid-cols-[1.3fr_0.9fr]">
+        <div className="grid gap-6">
           <div className="space-y-6">
             <AudioPreview audioUrl={previewAudioUrl} previewUrl={result.previewUrl || null} title={result.title || 'Instagram Reel Audio'} author={result.author || null} />
             <div className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm shadow-slate-200/50">

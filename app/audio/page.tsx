@@ -194,7 +194,7 @@ export default function AudioPage() {
 
       <section className="mx-auto max-w-full bg-slate-950/95 p-8 text-white shadow-xl shadow-slate-900/60">
         <div className="max-w-4xl mx-auto">
-          <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div className="grid gap-8 lg:items-center">
             <div className="space-y-6">
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-violet-300">Features</p>
               <h2 className="text-3xl font-semibold text-white">Premium audio download experience for Instagram reels.</h2>

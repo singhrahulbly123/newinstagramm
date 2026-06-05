@@ -560,11 +560,12 @@ const ffprobeStaticPath = ffprobe.path;
     const filename = sanitizeFilename('instagram-reel-audio');
     const mediaUrls = Array.from(new Set([videoUrl, ...(extraction.mediaUrls || [])])).slice(0, 8);
     const audioUrl = `/api/audio?videoUrl=${encodeURIComponent(videoUrl)}&mediaUrls=${encodeURIComponent(JSON.stringify(mediaUrls))}&filename=${encodeURIComponent(filename)}`;
+    const previewUrl = `/api/proxy?url=${encodeURIComponent(videoUrl)}`;
 
     const successResponse: Record<string, unknown> = {
       success: true,
       audioUrl,
-      previewUrl: null,
+      previewUrl,
       title: 'Instagram Reel Audio',
       author: null,
       duration: null,
