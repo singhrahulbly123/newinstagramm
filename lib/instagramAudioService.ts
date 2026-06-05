@@ -215,24 +215,29 @@ class PlaywrightManager {
   static async getBrowser(): Promise<Browser> {
     if (this.browser) return this.browser;
 
-    await ensurePlaywrightBrowsersJson();
+    try {
+      await ensurePlaywrightBrowsersJson();
 
-    if (!playwrightCore) {
-      playwrightCore = await import('playwright-core');
+      if (!playwrightCore) {
+        playwrightCore = await import('playwright-core');
+      }
+      if (!chromiumPkg) {
+        const chromiumModule = await import('@sparticuz/chromium');
+        chromiumPkg = chromiumModule.default ?? chromiumModule;
+      }
+
+      const browser = await playwrightCore.chromium.launch({
+        args: chromiumPkg.args,
+        executablePath: await chromiumPkg.executablePath(),
+        headless: true,
+      });
+
+      this.browser = browser;
+      return browser;
+    } catch (err) {
+      const error = (err as Error).message || String(err);
+      throw new Error(`[PLAYWRIGHT_UNAVAILABLE] Browser launch failed: ${error}. This environment may not support headless browser extraction.`);
     }
-    if (!chromiumPkg) {
-      const chromiumModule = await import('@sparticuz/chromium');
-      chromiumPkg = chromiumModule.default ?? chromiumModule;
-    }
-
-    const browser = await playwrightCore.chromium.launch({
-      args: chromiumPkg.args,
-      executablePath: await chromiumPkg.executablePath(),
-      headless: true,
-    });
-
-    this.browser = browser;
-    return browser;
   }
 
   static async extractVideoFromPage(url: string, diagnostics: AudioExtractionDiagnostics, timeoutMs = Number(process.env.IG_PLAYWRIGHT_TIMEOUT_MS || 15000)): Promise<PlaywrightFallbackResult> {
@@ -404,9 +409,16 @@ async function playwrightFallback(url: string, diagnostics: AudioExtractionDiagn
     pushDiagnostic(diagnostics, `[AUDIO] Playwright fallback failed: ${error}`);
     return { videoUrl: null, error };
   } catch (err) {
-    const error = (err as Error).message || String(err);
-    pushDiagnostic(diagnostics, `[AUDIO] Playwright fallback error: ${error}`);
-    return { videoUrl: null, error };
+    const errorMsg = (err as Error).message || String(err);
+    
+    if (errorMsg.includes('[PLAYWRIGHT_UNAVAILABLE]') || errorMsg.includes('browsers.json')) {
+      pushDiagnostic(diagnostics, `[AUDIO] Playwright not available in this environment: ${errorMsg}`);
+      pushDiagnostic(diagnostics, '[AUDIO] Static extraction strategies have already been attempted.');
+      return { videoUrl: null, error: 'Playwright fallback unavailable in this deployment environment. Static extraction strategies were attempted but did not find a video URL.' };
+    }
+    
+    pushDiagnostic(diagnostics, `[AUDIO] Playwright fallback error: ${errorMsg}`);
+    return { videoUrl: null, error: errorMsg };
   }
 }
 
