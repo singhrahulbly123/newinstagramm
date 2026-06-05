@@ -6,8 +6,6 @@ const nextConfig = {
     "ffmpeg-static",
     "ffprobe-static",
     "fluent-ffmpeg",
-    "playwright-core",
-    "@sparticuz/chromium"
   ],
 
   images: {
