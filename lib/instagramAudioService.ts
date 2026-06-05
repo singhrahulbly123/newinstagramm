@@ -709,6 +709,15 @@ export async function extractInstagramReelVideoUrl(html: string, originalUrl: st
   const diagnostics: AudioExtractionDiagnostics = [];
   pushDiagnostic(diagnostics, '[AUDIO] Starting extraction pipeline');
 
+  // Log HTML diagnostics to understand what we're working with
+  pushDiagnostic(diagnostics, `[AUDIO] Received HTML size: ${html.length} bytes`);
+  pushDiagnostic(diagnostics, `[AUDIO] Has video markers: ${hasModernInstagramMarkers(html)}`);
+  pushDiagnostic(diagnostics, `[AUDIO] Has og:video: ${html.includes('og:video') ? 'yes' : 'no'}`);
+  pushDiagnostic(diagnostics, `[AUDIO] Has .mp4: ${html.includes('.mp4') ? 'yes' : 'no'}`);
+  pushDiagnostic(diagnostics, `[AUDIO] Has video tags: ${html.includes('<video') ? 'yes' : 'no'}`);
+  pushDiagnostic(diagnostics, `[AUDIO] Has xdt_shortcode_media: ${html.includes('xdt_shortcode_media') ? 'yes' : 'no'}`);
+  pushDiagnostic(diagnostics, `[AUDIO] Has video_url field: ${html.includes('video_url') ? 'yes' : 'no'}`);
+
   try {
     const cached = await getCachedVideoUrl(pageUrl);
     if (cached) {
@@ -744,9 +753,10 @@ export async function extractInstagramReelVideoUrl(html: string, originalUrl: st
   }
 
   pushDiagnostic(diagnostics, '[AUDIO] Static extraction failed');
-  if (!hasModernInstagramMarkers(html)) {
-    await saveFetchedHtml(html, 'instagram-failed-extraction', diagnostics);
-  }
+  // Always save HTML for debugging when all strategies fail
+  await saveFetchedHtml(html, 'instagram-failed-extraction', diagnostics).catch((err) => {
+    pushDiagnostic(diagnostics, `[AUDIO] Failed to save debug HTML: ${(err as Error).message}`);
+  });
 
   const playwrightResult = await playwrightFallback(pageUrl, diagnostics);
   if (playwrightResult.videoUrl) {
