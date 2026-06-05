@@ -570,25 +570,42 @@ function extractFromInlineVideoUrl(html: string, diagnostics: AudioExtractionDia
 }
 
 function extractFromEscapedMp4Urls(html: string, diagnostics: AudioExtractionDiagnostics) {
-  // Handle escaped URLs like https:\/\/... which appear in JSON strings
-  const escapedUrlRegex = /https?:\\\/\\\/(?:[\w-]+\\.)+[\w-]+\\\/(?:[^"'\\\\]+?)\\.mp4(?:\\?[^"'\\\\]*)?/gi;
-  const escapedMatches = [...html.matchAll(escapedUrlRegex)];
+  // Match MP4 URLs in any escaping format: https://... or https:\/\/... or variations
+  // This catches both unescaped and escaped URLs in JSON/HTML context
+  const urlPatterns = [
+    /https?:(?:\\\/)+[^"'\s]*?\.mp4/gi,           // https:\/\/... (escaped)
+    /https?:\/\/[^"'\s]*?\.mp4/gi,               // https://... (unescaped)
+    /"https?[^"]*?\.mp4[^"]*?"/gi,               // "https...mp4..." (quoted)
+  ];
   
-  if (escapedMatches.length > 0) {
-    const unescaped = escapedMatches.map((m) => {
+  const candidates: string[] = [];
+  
+  for (const pattern of urlPatterns) {
+    const matches = [...html.matchAll(pattern)];
+    for (const match of matches) {
       // Unescape: replace \/ with /, \" with ", etc.
-      const raw = m[0].replace(/\\\//g, '/').replace(/\\\\/g, '\\');
-      return decodeInstagramUrl(raw);
-    });
-    
-    const best = findBestCandidate(unescaped);
+      const raw = match[0]
+        .replace(/['"]/g, '')                    // Remove quotes
+        .replace(/\\\//g, '/')                   // Unescape forward slashes
+        .replace(/\\\\/g, '\\')                  // Unescape backslashes
+        .replace(/\\"/g, '"');                   // Unescape quotes
+      
+      const url = decodeInstagramUrl(raw);
+      if (url.includes('.mp4')) {
+        candidates.push(url);
+      }
+    }
+  }
+  
+  if (candidates.length > 0) {
+    const best = findBestCandidate(candidates);
     if (best) {
-      pushDiagnostic(diagnostics, '[AUDIO] Strategy 5 success: escaped MP4 URL pattern detected');
+      pushDiagnostic(diagnostics, `[AUDIO] Strategy 5 success: found ${candidates.length} MP4 URL(s), using best match`);
       return best;
     }
   }
   
-  pushDiagnostic(diagnostics, '[AUDIO] Strategy 5 failed: no escaped MP4 URLs found');
+  pushDiagnostic(diagnostics, '[AUDIO] Strategy 5 failed: no MP4 URLs found in any format');
   return null;
 }
 
