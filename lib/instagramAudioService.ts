@@ -569,6 +569,29 @@ function extractFromInlineVideoUrl(html: string, diagnostics: AudioExtractionDia
   return null;
 }
 
+function extractFromEscapedMp4Urls(html: string, diagnostics: AudioExtractionDiagnostics) {
+  // Handle escaped URLs like https:\/\/... which appear in JSON strings
+  const escapedUrlRegex = /https?:\\\/\\\/(?:[\w-]+\\.)+[\w-]+\\\/(?:[^"'\\\\]+?)\\.mp4(?:\\?[^"'\\\\]*)?/gi;
+  const escapedMatches = [...html.matchAll(escapedUrlRegex)];
+  
+  if (escapedMatches.length > 0) {
+    const unescaped = escapedMatches.map((m) => {
+      // Unescape: replace \/ with /, \" with ", etc.
+      const raw = m[0].replace(/\\\//g, '/').replace(/\\\\/g, '\\');
+      return decodeInstagramUrl(raw);
+    });
+    
+    const best = findBestCandidate(unescaped);
+    if (best) {
+      pushDiagnostic(diagnostics, '[AUDIO] Strategy 5 success: escaped MP4 URL pattern detected');
+      return best;
+    }
+  }
+  
+  pushDiagnostic(diagnostics, '[AUDIO] Strategy 5 failed: no escaped MP4 URLs found');
+  return null;
+}
+
 export async function fetchWithTimeout(url: string, options: RequestInit = {}, timeoutMs = DEFAULT_FETCH_TIMEOUT) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
@@ -750,6 +773,12 @@ export async function extractInstagramReelVideoUrl(html: string, originalUrl: st
   if (strategy4) {
     try { await setCachedVideoUrl(pageUrl, strategy4); } catch { }
     return { videoUrl: strategy4, mediaUrls: [strategy4], strategy: 'Strategy 4', diagnostics };
+  }
+
+  const strategy5 = extractFromEscapedMp4Urls(html, diagnostics);
+  if (strategy5) {
+    try { await setCachedVideoUrl(pageUrl, strategy5); } catch { }
+    return { videoUrl: strategy5, mediaUrls: [strategy5], strategy: 'Strategy 5 (Escaped MP4)', diagnostics };
   }
 
   pushDiagnostic(diagnostics, '[AUDIO] Static extraction failed');
