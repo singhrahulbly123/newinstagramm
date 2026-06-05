@@ -2,7 +2,7 @@ import { createWriteStream } from 'node:fs';
 import { writeFile, readFile, stat, mkdir, readdir, unlink, open } from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
-import { chromium, Browser, BrowserContext } from 'playwright';
+// import { chromium, Browser, BrowserContext } from 'playwright';
 import { decodeInstagramUrl, extractMetaTag, extractUrlsFromAppJsonScripts } from './download';
 
 const DEFAULT_FETCH_TIMEOUT = Number(process.env.IG_FETCH_TIMEOUT_MS || 12000);
@@ -189,189 +189,189 @@ export async function cleanupExpiredMP3Cache() {
   }
 }
 
-class PlaywrightManager {
-  private static browser: Browser | null = null;
+// class PlaywrightManager {
+//   private static browser: Browser | null = null;
 
-  static async getBrowser() {
-    if (this.browser) return this.browser;
-    this.browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
-    return this.browser;
-  }
+//   static async getBrowser() {
+//     if (this.browser) return this.browser;
+//     this.browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+//     return this.browser;
+//   }
 
-  static async extractVideoFromPage(url: string, diagnostics: AudioExtractionDiagnostics, timeoutMs = Number(process.env.IG_PLAYWRIGHT_TIMEOUT_MS || 15000)): Promise<PlaywrightFallbackResult> {
-    pushDiagnostic(diagnostics, '[AUDIO] Playwright manager extracting video');
-    const browser = await this.getBrowser();
-    pushDiagnostic(diagnostics, '[AUDIO] Browser launched');
-    const proxy = process.env.PROXY_URL || undefined;
+//   static async extractVideoFromPage(url: string, diagnostics: AudioExtractionDiagnostics, timeoutMs = Number(process.env.IG_PLAYWRIGHT_TIMEOUT_MS || 15000)): Promise<PlaywrightFallbackResult> {
+//     pushDiagnostic(diagnostics, '[AUDIO] Playwright manager extracting video');
+//     const browser = await this.getBrowser();
+//     pushDiagnostic(diagnostics, '[AUDIO] Browser launched');
+//     const proxy = process.env.PROXY_URL || undefined;
 
-    const contextOptions: any = { userAgent: USER_AGENT, locale: 'en-US' };
-    if (proxy) {
-      contextOptions.proxy = { server: proxy };
-      pushDiagnostic(diagnostics, `[AUDIO] Using proxy for Playwright: ${proxy}`);
-    }
+//     const contextOptions: any = { userAgent: USER_AGENT, locale: 'en-US' };
+//     if (proxy) {
+//       contextOptions.proxy = { server: proxy };
+//       pushDiagnostic(diagnostics, `[AUDIO] Using proxy for Playwright: ${proxy}`);
+//     }
 
-    const context = await browser.newContext(contextOptions);
-    const page = await context.newPage();
-    const networkCandidates = new Set<string>();
-    const mediaResponseCandidates = new Set<string>();
+//     const context = await browser.newContext(contextOptions);
+//     const page = await context.newPage();
+//     const networkCandidates = new Set<string>();
+//     const mediaResponseCandidates = new Set<string>();
 
-    page.on('request', (request) => {
-      addMp4CandidatesFromText(request.url(), networkCandidates);
-      if (request.resourceType() === 'media') {
-        addMp4CandidatesFromText(request.url(), mediaResponseCandidates);
-      }
-      const postData = request.postData();
-      if (postData) addMp4CandidatesFromText(postData, networkCandidates);
-    });
+//     page.on('request', (request) => {
+//       addMp4CandidatesFromText(request.url(), networkCandidates);
+//       if (request.resourceType() === 'media') {
+//         addMp4CandidatesFromText(request.url(), mediaResponseCandidates);
+//       }
+//       const postData = request.postData();
+//       if (postData) addMp4CandidatesFromText(postData, networkCandidates);
+//     });
 
-    page.on('response', async (response) => {
-      const responseUrl = response.url();
-      addMp4CandidatesFromText(responseUrl, networkCandidates);
-      const contentType = response.headers()['content-type'] || '';
-      if (contentType.includes('video') || contentType.includes('octet-stream')) {
-        addMp4CandidatesFromText(responseUrl, mediaResponseCandidates);
-      }
-    });
+//     page.on('response', async (response) => {
+//       const responseUrl = response.url();
+//       addMp4CandidatesFromText(responseUrl, networkCandidates);
+//       const contentType = response.headers()['content-type'] || '';
+//       if (contentType.includes('video') || contentType.includes('octet-stream')) {
+//         addMp4CandidatesFromText(responseUrl, mediaResponseCandidates);
+//       }
+//     });
 
-    // Inject cookies if present
-    const sessionId = process.env.INSTAGRAM_SESSIONID;
-    const csrftoken = process.env.INSTAGRAM_CSRFTOKEN;
-    if (sessionId) {
-      try {
-        await context.addCookies([
-          { name: 'sessionid', value: sessionId, domain: '.instagram.com', path: '/', httpOnly: true, secure: true },
-        ]);
-        pushDiagnostic(diagnostics, '[AUDIO] Session cookie injected');
-      } catch (e) {
-        pushDiagnostic(diagnostics, `[AUDIO] Session cookie injection failed: ${(e as Error).message}`);
-      }
-    }
-    if (csrftoken) {
-      try {
-        await context.addCookies([
-          { name: 'csrftoken', value: csrftoken, domain: '.instagram.com', path: '/', httpOnly: false, secure: true },
-        ]);
-        pushDiagnostic(diagnostics, '[AUDIO] CSRF token cookie injected');
-      } catch (e) {
-        pushDiagnostic(diagnostics, `[AUDIO] CSRF cookie injection failed: ${(e as Error).message}`);
-      }
-    }
+//     // Inject cookies if present
+//     const sessionId = process.env.INSTAGRAM_SESSIONID;
+//     const csrftoken = process.env.INSTAGRAM_CSRFTOKEN;
+//     if (sessionId) {
+//       try {
+//         await context.addCookies([
+//           { name: 'sessionid', value: sessionId, domain: '.instagram.com', path: '/', httpOnly: true, secure: true },
+//         ]);
+//         pushDiagnostic(diagnostics, '[AUDIO] Session cookie injected');
+//       } catch (e) {
+//         pushDiagnostic(diagnostics, `[AUDIO] Session cookie injection failed: ${(e as Error).message}`);
+//       }
+//     }
+//     if (csrftoken) {
+//       try {
+//         await context.addCookies([
+//           { name: 'csrftoken', value: csrftoken, domain: '.instagram.com', path: '/', httpOnly: false, secure: true },
+//         ]);
+//         pushDiagnostic(diagnostics, '[AUDIO] CSRF token cookie injected');
+//       } catch (e) {
+//         pushDiagnostic(diagnostics, `[AUDIO] CSRF cookie injection failed: ${(e as Error).message}`);
+//       }
+//     }
 
-    try {
-      await page.goto(url, { waitUntil: 'domcontentloaded', timeout: timeoutMs });
-      await page.waitForLoadState('networkidle', { timeout: 3000 }).catch(() => undefined);
-      pushDiagnostic(diagnostics, '[AUDIO] Page loaded');
+//     try {
+//       await page.goto(url, { waitUntil: 'domcontentloaded', timeout: timeoutMs });
+//       await page.waitForLoadState('networkidle', { timeout: 3000 }).catch(() => undefined);
+//       pushDiagnostic(diagnostics, '[AUDIO] Page loaded');
 
-      const videoData = await page.evaluate(() => {
-        const primaryVideoSrc = document.querySelector("video")?.src || null;
-        const urls: string[] = [];
-        const videos = Array.from(document.querySelectorAll('video')) as HTMLVideoElement[];
-        for (const video of videos) {
-          if (video.currentSrc) urls.push(video.currentSrc);
-          if (video.src) urls.push(video.src);
-          const sourceElements = Array.from(video.querySelectorAll('source')) as HTMLSourceElement[];
-          for (const sourceEl of sourceElements) {
-            if (sourceEl.src) urls.push(sourceEl.src);
-          }
-        }
-        return {
-          primaryVideoSrc,
-          sources: Array.from(new Set(urls)),
-          videoCount: videos.length,
-        };
-      });
+//       const videoData = await page.evaluate(() => {
+//         const primaryVideoSrc = document.querySelector("video")?.src || null;
+//         const urls: string[] = [];
+//         const videos = Array.from(document.querySelectorAll('video')) as HTMLVideoElement[];
+//         for (const video of videos) {
+//           if (video.currentSrc) urls.push(video.currentSrc);
+//           if (video.src) urls.push(video.src);
+//           const sourceElements = Array.from(video.querySelectorAll('source')) as HTMLSourceElement[];
+//           for (const sourceEl of sourceElements) {
+//             if (sourceEl.src) urls.push(sourceEl.src);
+//           }
+//         }
+//         return {
+//           primaryVideoSrc,
+//           sources: Array.from(new Set(urls)),
+//           videoCount: videos.length,
+//         };
+//       });
 
-      if (!videoData.videoCount) {
-        const error = 'No video element found';
-        pushDiagnostic(diagnostics, `[AUDIO] Playwright fallback error: ${error}`);
-        return { videoUrl: null, error };
-      }
-      pushDiagnostic(diagnostics, '[AUDIO] Video element found');
+//       if (!videoData.videoCount) {
+//         const error = 'No video element found';
+//         pushDiagnostic(diagnostics, `[AUDIO] Playwright fallback error: ${error}`);
+//         return { videoUrl: null, error };
+//       }
+//       pushDiagnostic(diagnostics, '[AUDIO] Video element found');
 
-      await page.evaluate(() => {
-        const videos = Array.from(document.querySelectorAll('video')) as HTMLVideoElement[];
-        for (const video of videos) {
-          video.muted = true;
-          video.play().catch(() => undefined);
-        }
-      }).catch(() => undefined);
-      await page.waitForTimeout(3000);
+//       await page.evaluate(() => {
+//         const videos = Array.from(document.querySelectorAll('video')) as HTMLVideoElement[];
+//         for (const video of videos) {
+//           video.muted = true;
+//           video.play().catch(() => undefined);
+//         }
+//       }).catch(() => undefined);
+//       await page.waitForTimeout(3000);
 
-      const performanceUrls = await page.evaluate(() =>
-        performance
-          .getEntriesByType('resource')
-          .map((entry) => entry.name)
-          .filter(Boolean),
-      );
-      for (const resourceUrl of performanceUrls) {
-        addMp4CandidatesFromText(resourceUrl, networkCandidates);
-      }
+//       const performanceUrls = await page.evaluate(() =>
+//         performance
+//           .getEntriesByType('resource')
+//           .map((entry) => entry.name)
+//           .filter(Boolean),
+//       );
+//       for (const resourceUrl of performanceUrls) {
+//         addMp4CandidatesFromText(resourceUrl, networkCandidates);
+//       }
 
-      const sources = videoData.sources;
-      if (videoData.primaryVideoSrc || sources.length) {
-        pushDiagnostic(diagnostics, '[AUDIO] Video src extracted');
-        pushDiagnostic(diagnostics, `[AUDIO] Playwright video sources: ${JSON.stringify({ primaryVideoSrc: videoData.primaryVideoSrc, sources })}`);
-      } else {
-        const error = 'Video element found but no video src extracted';
-        pushDiagnostic(diagnostics, `[AUDIO] Playwright fallback error: ${error}`);
-        return { videoUrl: null, error };
-      }
+//       const sources = videoData.sources;
+//       if (videoData.primaryVideoSrc || sources.length) {
+//         pushDiagnostic(diagnostics, '[AUDIO] Video src extracted');
+//         pushDiagnostic(diagnostics, `[AUDIO] Playwright video sources: ${JSON.stringify({ primaryVideoSrc: videoData.primaryVideoSrc, sources })}`);
+//       } else {
+//         const error = 'Video element found but no video src extracted';
+//         pushDiagnostic(diagnostics, `[AUDIO] Playwright fallback error: ${error}`);
+//         return { videoUrl: null, error };
+//       }
 
-      for (const source of sources) {
-        addMp4CandidatesFromText(source, networkCandidates);
-      }
+//       for (const source of sources) {
+//         addMp4CandidatesFromText(source, networkCandidates);
+//       }
 
-      const candidates = rankMp4Candidates([...mediaResponseCandidates, ...networkCandidates]);
-      pushDiagnostic(diagnostics, `[AUDIO] Playwright media response candidates: ${JSON.stringify(Array.from(mediaResponseCandidates))}`);
-      pushDiagnostic(diagnostics, `[AUDIO] Playwright MP4 candidates: ${JSON.stringify(candidates)}`);
-      if (!candidates.length) {
-        const error = `No MP4 URL found in Playwright video sources or network activity: ${JSON.stringify({ sources, mediaResponseCandidates: Array.from(mediaResponseCandidates), networkCandidates: Array.from(networkCandidates) })}`;
-        pushDiagnostic(diagnostics, `[AUDIO] Playwright fallback error: ${error}`);
-        return { videoUrl: null, error };
-      }
+//       const candidates = rankMp4Candidates([...mediaResponseCandidates, ...networkCandidates]);
+//       pushDiagnostic(diagnostics, `[AUDIO] Playwright media response candidates: ${JSON.stringify(Array.from(mediaResponseCandidates))}`);
+//       pushDiagnostic(diagnostics, `[AUDIO] Playwright MP4 candidates: ${JSON.stringify(candidates)}`);
+//       if (!candidates.length) {
+//         const error = `No MP4 URL found in Playwright video sources or network activity: ${JSON.stringify({ sources, mediaResponseCandidates: Array.from(mediaResponseCandidates), networkCandidates: Array.from(networkCandidates) })}`;
+//         pushDiagnostic(diagnostics, `[AUDIO] Playwright fallback error: ${error}`);
+//         return { videoUrl: null, error };
+//       }
 
-      const best = candidates.sort((a, b) => b.length - a.length)[0];
-      pushDiagnostic(diagnostics, '[AUDIO] MP4 URL found');
-      return { videoUrl: best, mediaUrls: candidates };
-    } catch (err) {
-      const error = (err as Error).message || String(err);
-      pushDiagnostic(diagnostics, `[AUDIO] Playwright fallback error: ${error}`);
-      return { videoUrl: null, error };
-    } finally {
-      try {
-        await context.close();
-      } catch {}
-    }
-  }
-}
+//       const best = candidates.sort((a, b) => b.length - a.length)[0];
+//       pushDiagnostic(diagnostics, '[AUDIO] MP4 URL found');
+//       return { videoUrl: best, mediaUrls: candidates };
+//     } catch (err) {
+//       const error = (err as Error).message || String(err);
+//       pushDiagnostic(diagnostics, `[AUDIO] Playwright fallback error: ${error}`);
+//       return { videoUrl: null, error };
+//     } finally {
+//       try {
+//         await context.close();
+//       } catch {}
+//     }
+//   }
+// }
 
-async function playwrightFallback(url: string, diagnostics: AudioExtractionDiagnostics): Promise<PlaywrightFallbackResult> {
-  pushDiagnostic(diagnostics, '[AUDIO] Starting Playwright fallback');
+// async function playwrightFallback(url: string, diagnostics: AudioExtractionDiagnostics): Promise<PlaywrightFallbackResult> {
+//   pushDiagnostic(diagnostics, '[AUDIO] Starting Playwright fallback');
 
-  try {
-    const cached = await getCachedVideoUrl(url);
-    if (cached) {
-      pushDiagnostic(diagnostics, '[AUDIO] Cached MP4 URL hit');
-      pushDiagnostic(diagnostics, '[AUDIO] MP4 URL found');
-      return { videoUrl: cached, mediaUrls: [cached] };
-    }
+//   try {
+//     const cached = await getCachedVideoUrl(url);
+//     if (cached) {
+//       pushDiagnostic(diagnostics, '[AUDIO] Cached MP4 URL hit');
+//       pushDiagnostic(diagnostics, '[AUDIO] MP4 URL found');
+//       return { videoUrl: cached, mediaUrls: [cached] };
+//     }
 
-    const extracted = await PlaywrightManager.extractVideoFromPage(url, diagnostics);
-    if (extracted.videoUrl) {
-      await setCachedVideoUrl(url, extracted.videoUrl).catch(() => undefined);
-      pushDiagnostic(diagnostics, '[AUDIO] Playwright extraction success');
-      return extracted;
-    }
+//     const extracted = await PlaywrightManager.extractVideoFromPage(url, diagnostics);
+//     if (extracted.videoUrl) {
+//       await setCachedVideoUrl(url, extracted.videoUrl).catch(() => undefined);
+//       pushDiagnostic(diagnostics, '[AUDIO] Playwright extraction success');
+//       return extracted;
+//     }
 
-    const error = extracted.error || 'Playwright fallback failed to extract a URL';
-    pushDiagnostic(diagnostics, `[AUDIO] Playwright fallback failed: ${error}`);
-    return { videoUrl: null, error };
-  } catch (err) {
-    const error = (err as Error).message || String(err);
-    pushDiagnostic(diagnostics, `[AUDIO] Playwright fallback error: ${error}`);
-    return { videoUrl: null, error };
-  }
-}
+//     const error = extracted.error || 'Playwright fallback failed to extract a URL';
+//     pushDiagnostic(diagnostics, `[AUDIO] Playwright fallback failed: ${error}`);
+//     return { videoUrl: null, error };
+//   } catch (err) {
+//     const error = (err as Error).message || String(err);
+//     pushDiagnostic(diagnostics, `[AUDIO] Playwright fallback error: ${error}`);
+//     return { videoUrl: null, error };
+//   }
+// }
 
 function extractVideoUrlsFromObject(value: unknown, results: Set<string>) {
   if (value == null) return;
@@ -699,19 +699,19 @@ export async function extractInstagramReelVideoUrl(html: string, originalUrl: st
     await saveFetchedHtml(html, 'instagram-failed-extraction', diagnostics);
   }
 
-  const playwrightResult = await playwrightFallback(pageUrl, diagnostics);
-  if (playwrightResult.videoUrl) {
-    try { await setCachedVideoUrl(pageUrl, playwrightResult.videoUrl); } catch {}
-    return { videoUrl: playwrightResult.videoUrl, mediaUrls: playwrightResult.mediaUrls || [playwrightResult.videoUrl], strategy: 'Playwright fallback', diagnostics };
-  }
+  // const playwrightResult = await playwrightFallback(pageUrl, diagnostics);
+  // if (playwrightResult.videoUrl) {
+  //   try { await setCachedVideoUrl(pageUrl, playwrightResult.videoUrl); } catch {}
+  //   return { videoUrl: playwrightResult.videoUrl, mediaUrls: playwrightResult.mediaUrls || [playwrightResult.videoUrl], strategy: 'Playwright fallback', diagnostics };
+  // }
 
   const failureReasons = diagnostics.filter((line) => line.includes('failed') || line.includes('detected'));
   const failureMessage = ['Unable to extract Instagram reel video URL.'].concat(failureReasons).join(' ');
-  return {
-    videoUrl: null,
-    strategy: null,
-    diagnostics,
-    error: playwrightResult.error || failureMessage,
-  };
+return {
+  videoUrl: null,
+  strategy: null,
+  diagnostics,
+  error: failureMessage,
+};
 }
 
