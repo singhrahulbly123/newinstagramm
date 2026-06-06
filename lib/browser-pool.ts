@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import type { Browser, BrowserContext } from 'playwright-core';
 import { error, log } from './logger';
-import { getChromiumArgs, getChromiumExecutablePath } from './playwright-chromium';
+import { ensurePlaywrightBrowsersJsonFile, getChromiumArgs, getChromiumExecutablePath } from './playwright-chromium';
 
 declare global {
   // eslint-disable-next-line no-var
@@ -85,7 +85,7 @@ class BrowserPool {
     }
 
     try {
-      await ensurePlaywrightBrowsersJson();
+      await ensurePlaywrightBrowsersJsonFile();
       if (!playwrightCore) {
         playwrightCore = await import('playwright-core');
       }

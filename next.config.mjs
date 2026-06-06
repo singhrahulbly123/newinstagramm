@@ -5,7 +5,9 @@ const nextConfig = {
   serverExternalPackages: [
     "ffmpeg-static",
     "ffprobe-static",
-    "fluent-ffmpeg"
+    "fluent-ffmpeg",
+    "playwright-core",
+    "@sparticuz/chromium",
   ],
 
   images: {

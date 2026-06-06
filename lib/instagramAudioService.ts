@@ -5,11 +5,14 @@ import os from 'node:os';
 import { createRequire } from 'node:module';
 import type { Browser } from 'playwright-core';
 import { decodeInstagramUrl, extractMetaTag, extractUrlsFromAppJsonScripts } from './download';
-import { getChromiumArgs, getChromiumExecutablePath } from './playwright-chromium';
+import {
+  ensurePlaywrightBrowsersJsonFile,
+  getChromiumArgs,
+  getChromiumExecutablePath,
+} from './playwright-chromium';
 
 let playwrightCore: any = null;
 let chromiumPkg: any = null;
-let playwrightBrowsersJsonIncluded = false;
 const nodeRequire = createRequire(import.meta.url);
 
 const DEFAULT_FETCH_TIMEOUT = Number(process.env.IG_FETCH_TIMEOUT_MS || 12000);
@@ -197,19 +200,6 @@ export async function cleanupExpiredMP3Cache() {
   }
 }
 
-async function ensurePlaywrightBrowsersJson() {
-  if (playwrightBrowsersJsonIncluded) return;
-
-  try {
-    const playwrightPackageJson = nodeRequire.resolve('playwright-core/package.json');
-    const browsersJsonPath = path.join(path.dirname(playwrightPackageJson), 'browsers.json');
-    await readFile(browsersJsonPath, 'utf8');
-    playwrightBrowsersJsonIncluded = true;
-  } catch {
-    // If this file cannot be resolved, we allow the later Playwright import to fail normally.
-  }
-}
-
 class PlaywrightManager {
   private static browser: Browser | null = null;
 
@@ -217,7 +207,7 @@ class PlaywrightManager {
     if (this.browser) return this.browser;
 
     try {
-      await ensurePlaywrightBrowsersJson();
+        await ensurePlaywrightBrowsersJsonFile();
 
       if (!playwrightCore) {
         playwrightCore = await import('playwright-core');
