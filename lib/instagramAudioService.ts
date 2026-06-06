@@ -5,6 +5,7 @@ import os from 'node:os';
 import { createRequire } from 'node:module';
 import type { Browser } from 'playwright-core';
 import { decodeInstagramUrl, extractMetaTag, extractUrlsFromAppJsonScripts } from './download';
+import { getChromiumArgs, getChromiumExecutablePath } from './playwright-chromium';
 
 let playwrightCore: any = null;
 let chromiumPkg: any = null;
@@ -227,8 +228,8 @@ class PlaywrightManager {
       }
 
       const browser = await playwrightCore.chromium.launch({
-        args: chromiumPkg.args,
-        executablePath: await chromiumPkg.executablePath(),
+        args: await getChromiumArgs(),
+        executablePath: await getChromiumExecutablePath(),
         headless: true,
       });
 

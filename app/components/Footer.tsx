@@ -12,10 +12,11 @@ export default function Footer() {
                     <div>
                         <p className="font-semibold text-slate-950">Tools</p>
                         <ul className="mt-4 space-y-2 text-sm text-slate-600">
-                            <li>Reels Downloader</li>
-                            <li>Video Downloader</li>
-                            <li>Photo Downloader</li>
-                            <li>Audio Downloader</li>
+                            <li><a href="/reels" className="transition hover:text-slate-950">Reels Downloader</a></li>
+                            <li><a href="/videos" className="transition hover:text-slate-950">Video Downloader</a></li>
+                            <li><a href="/photos" className="transition hover:text-slate-950">Photo Downloader</a></li>
+                            <li><a href="/audio" className="transition hover:text-slate-950">Audio Downloader</a></li>
+                            <li><a href="/story" className="transition hover:text-slate-950">Story Downloader</a></li>
                         </ul>
                     </div>
                     <div>

@@ -12,8 +12,10 @@ export default function Header() {
           </div>
           <nav className="flex flex-wrap items-center gap-6 text-sm font-semibold text-slate-600">
             <a href="/" className="transition hover:text-slate-950">Video</a>
+            <a href="/story" className="transition hover:text-slate-950">Stories</a>
             <a href="/audio" className="transition hover:text-slate-950">Audio</a>
             <a href="/photo" className="transition hover:text-slate-950">Photo</a>
+            <a href="/story" className="transition hover:text-slate-950">Story</a>
             <a href="/blog" className="transition hover:text-slate-950">Blog</a>
           </nav>
           
