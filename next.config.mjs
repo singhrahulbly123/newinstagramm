@@ -10,6 +10,10 @@ const nextConfig = {
     "@sparticuz/chromium",
   ],
 
+  outputFileTracingIncludes: {
+    'app/api/*': ['node_modules/playwright-core/browsers.json'],
+  },
+
   images: {
     remotePatterns: [
       {
