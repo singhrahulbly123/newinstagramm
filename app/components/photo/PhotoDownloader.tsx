@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useMemo, useState } from 'react';
 import PhotoPreview from './PhotoPreview';
 import type { InstagramPhotoItem } from '../../../lib/photo';
@@ -130,15 +131,15 @@ export default function PhotoDownloader() {
       </div>
 
       {previewUrl ? (
-        <div className="space-y-5 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm shadow-slate-200/50">
-          <p className="font-semibold text-slate-950">Preview</p>
-          <div className="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-slate-100">
-            <img
+        <div className="space-y-5 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm shadow-slate-200/50 dark:border-slate-700 dark:bg-slate-950">
+          <p className="font-semibold text-slate-950 dark:text-slate-100">Preview</p>
+          <div className="relative overflow-hidden rounded-[1.5rem] border border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-900" style={{ minHeight: 240 }}>
+            <Image
               src={previewUrl}
               alt="Instagram photo preview"
-              className="w-full max-h-[640px] object-contain"
-              loading="lazy"
-              decoding="async"
+              fill
+              className="object-contain"
+              sizes="100vw"
             />
           </div>
 

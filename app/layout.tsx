@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import { ThemeProvider } from './components/ThemeProvider';
 import './globals.css';
 
 const poppins = Poppins({
@@ -65,11 +66,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={poppins.className}>
-      <body className="bg-soft text-slate-900">
-        <Header />
-        <main>{children}</main>
-        <Footer />
+    <html lang="en" className={poppins.className} suppressHydrationWarning>
+      <body className="bg-soft text-slate-900 dark:bg-slate-900 dark:text-slate-50">
+        <ThemeProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

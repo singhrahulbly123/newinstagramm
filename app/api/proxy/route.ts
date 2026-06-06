@@ -64,6 +64,7 @@ export async function GET(request: Request) {
   if (contentDisposition) {
     headers.set('Content-Disposition', contentDisposition);
   }
+  headers.set('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');
 
   return new Response(response.body, {
     status: response.status,

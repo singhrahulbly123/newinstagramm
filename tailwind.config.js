@@ -4,6 +4,7 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       boxShadow: {
@@ -11,6 +12,12 @@ module.exports = {
       },
       backgroundImage: {
         soft: 'radial-gradient(circle at top, rgba(59,130,246,0.14), transparent 38%), radial-gradient(circle at 80% 10%, rgba(168,85,247,0.12), transparent 30%), radial-gradient(circle at 20% 80%, rgba(59,130,246,0.08), transparent 32%)',
+      },
+      colors: {
+        dark: {
+          bg: '#0f172a',
+          card: '#1e293b',
+        },
       },
     },
   },

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import type { StoryItem } from '../../types/story';
 
 type Props = {
@@ -37,13 +38,15 @@ export default function StoryPreview({ item, onClose }: Props) {
                 poster={item.thumbnailUrl}
               />
             ) : (
-              <img
-                src={item.previewUrl}
-                alt={item.title}
-                className="w-full rounded-[1.5rem] object-contain"
-                loading="lazy"
-                decoding="async"
-              />
+              <div className="relative w-full overflow-hidden rounded-[1.5rem] bg-slate-900" style={{ aspectRatio: '16 / 9' }}>
+                <Image
+                  src={item.previewUrl}
+                  alt={item.title}
+                  fill
+                  className="object-contain"
+                  sizes="100vw"
+                />
+              </div>
             )}
           </div>
 

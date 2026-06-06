@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useMemo, useState } from 'react';
 
 type InstagramPhotoItem = {
@@ -149,21 +150,21 @@ export default function PhotoDownloaderHero() {
       </div>
 
       {previewUrl ? (
-        <div className="space-y-5 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm shadow-slate-200/50">
-          <p className="font-semibold text-slate-950">Preview</p>
-          <div className="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-slate-100">
-            <img
+        <div className="space-y-5 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm shadow-slate-200/50 dark:border-slate-700 dark:bg-slate-950">
+          <p className="font-semibold text-slate-950 dark:text-slate-100">Preview</p>
+          <div className="relative overflow-hidden rounded-[1.5rem] border border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-900" style={{ minHeight: 240 }}>
+            <Image
               src={previewUrl}
               alt="Instagram photo preview"
-              className="w-full max-h-[640px] object-contain"
-              loading="lazy"
-              decoding="async"
+              fill
+              className="object-contain"
+              sizes="100vw"
             />
           </div>
           {items.length > 0 ? (
             <div className="space-y-4">
               <div className="flex flex-wrap items-center gap-3">
-                <p className="text-sm text-slate-600">
+                <p className="text-sm text-slate-600 dark:text-slate-400">
                   Showing {items.length} image{items.length > 1 ? 's' : ''} from this post.
                 </p>
                 {items.length > 1 ? (
@@ -180,12 +181,18 @@ export default function PhotoDownloaderHero() {
 
               <div className="grid gap-4 sm:grid-cols-2">
                 {items.map((item) => (
-                  <div key={item.id} className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-4 shadow-sm shadow-slate-200/50">
-                    <div className="mb-3 overflow-hidden rounded-[1.5rem] border border-slate-200 bg-slate-100">
-                      <img src={item.url} alt={`Instagram photo ${item.id}`} className="h-48 w-full object-cover" loading="lazy" decoding="async" />
+                  <div key={item.id} className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-4 shadow-sm shadow-slate-200/50 dark:border-slate-700 dark:bg-slate-900">
+                    <div className="relative mb-3 overflow-hidden rounded-[1.5rem] border border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-900" style={{ minHeight: 192 }}>
+                      <Image
+                        src={item.url}
+                        alt={`Instagram photo ${item.id}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                      />
                     </div>
-                    <p className="text-sm font-semibold text-slate-950">{item.filename}</p>
-                    <p className="mt-1 text-sm text-slate-600">
+                    <p className="text-sm font-semibold text-slate-950 dark:text-slate-100">{item.filename}</p>
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
                       {item.width || '–'}×{item.height || '–'} pixels
                     </p>
                     <a

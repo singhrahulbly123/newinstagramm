@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Sitemap: https://fastvideosave.net/sitemap.xml
+Host: https://fastvideosave.net
+
+# Crawl delay can be added if needed for server load management
+# Crawl-delay: 10

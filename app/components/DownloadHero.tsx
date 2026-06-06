@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 
 const sampleUrls = [
@@ -83,14 +84,20 @@ export default function DownloadHero() {
       {previewUrl ? (
         <div className="rounded-[1.75rem] bg-white px-4 py-5 text-sm text-slate-700 shadow-sm shadow-slate-200/50 m-auto ">
           <p className="font-semibold text-slate-950">Preview</p>
-          <div className="mt-4 overflow-hidden rounded-[1.5rem] border border-slate-200 bg-slate-100 max-w-[342px] m-auto">
+          <div className="relative mt-4 overflow-hidden rounded-[1.5rem] border border-slate-200 bg-slate-100 max-w-[342px] m-auto" style={{ minHeight: 340 }}>
             {previewType === 'video' ? (
               <video controls preload="metadata" className="w-full max-h-[600px] rounded-[1.5rem] bg-black object-contain">
                 <source src={previewUrl} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             ) : (
-              <img src={previewUrl} alt="Instagram preview" className="w-full max-h-[600px] rounded-[1.5rem] object-contain" />
+              <Image
+                src={previewUrl}
+                alt="Instagram preview"
+                fill
+                className="object-contain"
+                sizes="(max-width: 342px) 100vw"
+              />
             )}
           </div>
           {downloadUrl ? (
