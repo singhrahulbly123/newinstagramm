@@ -1,4 +1,14 @@
-export type LogCategory = 'STORY' | 'PLAYWRIGHT' | 'CACHE' | 'QUEUE' | 'PROFILE' | 'DOWNLOAD' | 'ANALYTICS';
+export type LogCategory =
+  | 'STORY'
+  | 'PLAYWRIGHT'
+  | 'CACHE'
+  | 'QUEUE'
+  | 'PROFILE'
+  | 'DOWNLOAD'
+  | 'ANALYTICS'
+  | 'FACEBOOK'
+  | 'FACEBOOK_API'
+  | 'FACEBOOK_PLAYWRIGHT';
 
 const enableDebug = process.env.STORY_DEBUG === '1';
 

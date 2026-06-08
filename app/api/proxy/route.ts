@@ -7,6 +7,9 @@ const allowedHosts = [
   'instagramcdn.com',
   'fbcdn.net',
   'akamaized.net',
+  'facebook.com',
+  'www.facebook.com',
+  'm.facebook.com',
 ];
 
 function isAllowedHost(url: URL) {

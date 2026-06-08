@@ -12,6 +12,7 @@
     "postinstall": "node ./scripts/ensure-playwright-browsers-json.js"
   },
   "dependencies": {
+    "@distube/ytdl-core": "^4.16.12",
     "@sparticuz/chromium": "^149.0.0",
     "ffmpeg-static": "^5.3.0",
     "ffprobe-static": "^3.1.0",

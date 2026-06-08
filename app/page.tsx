@@ -143,6 +143,12 @@ export default function HomePage() {
                 <p className="font-semibold text-sm sm:text-base text-slate-950 dark:text-white">🌐 Online Downloader</p>
                 <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400">Save reels, stories, videos and photos in one click.</p>
               </div>
+              <div className="rounded-lg sm:rounded-2xl bg-gradient-to-br from-red-50 to-red-100/50 p-4 sm:p-5 border border-red-200/50 shadow-sm dark:from-red-900/20 dark:to-red-800/10 dark:border-red-800/50">
+                <a href="/youtube-downloader" className="block">
+                  <p className="font-semibold text-sm sm:text-base text-slate-950 dark:text-white">▶️ YouTube Shorts Downloader</p>
+                  <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400">Download YouTube Shorts and Videos in HD quality.</p>
+                </a>
+              </div>
               <div className="rounded-lg sm:rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100/50 p-4 sm:p-5 border border-blue-200/50 shadow-sm dark:from-blue-900/20 dark:to-blue-800/10 dark:border-blue-800/50">
                 <p className="font-semibold text-sm sm:text-base text-slate-950 dark:text-white">🔒 No Login Required</p>
                 <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400">Download public Instagram content without logging in.</p>
