@@ -1,0 +1,12 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" rx="40" fill="#ECFDF5"/>
+  <rect x="72" y="72" width="1056" height="486" rx="32" fill="white" stroke="#D1FAE5" stroke-width="6"/>
+  <text x="120" y="180" font-family="Inter, sans-serif" font-size="60" font-weight="700" fill="#065F46">Save Instagram Reels</text>
+  <text x="120" y="260" font-family="Inter, sans-serif" font-size="48" font-weight="600" fill="#047857">in HD Quality</text>
+  <rect x="120" y="320" width="280" height="80" rx="20" fill="#10B981"/>
+  <text x="170" y="375" font-family="Inter, sans-serif" font-size="32" font-weight="700" fill="white">Download</text>
+  <circle cx="980" cy="380" r="100" fill="#D1FAE5"/>
+  <path d="M940 360C952 348 976 346 988 360C1000 374 1000 399 988 413C976 427 952 425 940 413C928 401 928 376 940 360Z" fill="#059669"/>
+  <path d="M934 374C936 384 944 388 952 388C960 388 968 384 970 374" stroke="white" stroke-width="10" stroke-linecap="round"/>
+  <text x="120" y="480" font-family="Inter, sans-serif" font-size="24" fill="#065F46">Fast browser-based Instagram Reel downloads</text>
+</svg>

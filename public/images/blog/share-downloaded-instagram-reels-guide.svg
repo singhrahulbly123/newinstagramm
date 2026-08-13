@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Share Downloaded Instagram Reels</title>
+  <desc id="desc">A guide graphic showing a mobile phone sharing a downloaded Instagram Reel.</desc>
+  <rect width="1600" height="900" fill="#f5fff9"/>
+  <rect x="120" y="120" width="1360" height="660" rx="36" fill="#ffffff" stroke="#d8f5e3" stroke-width="3"/>
+  <rect x="220" y="220" width="320" height="420" rx="40" fill="#0f172a"/>
+  <rect x="250" y="260" width="260" height="280" rx="28" fill="#111827" stroke="#33c27a" stroke-width="4"/>
+  <rect x="278" y="292" width="204" height="116" rx="20" fill="#f59e0b"/>
+  <rect x="300" y="430" width="160" height="16" rx="8" fill="#34d399"/>
+  <rect x="300" y="458" width="120" height="16" rx="8" fill="#34d399" opacity="0.8"/>
+  <rect x="720" y="250" width="300" height="220" rx="30" fill="#ecfdf5" stroke="#92e6b8" stroke-width="3"/>
+  <path d="M830 330h120" stroke="#0f766e" stroke-width="16" stroke-linecap="round"/>
+  <path d="M890 270v120" stroke="#0f766e" stroke-width="16" stroke-linecap="round"/>
+  <rect x="1080" y="250" width="220" height="220" rx="30" fill="#d1fae5"/>
+  <circle cx="1190" cy="360" r="70" fill="#10b981"/>
+  <path d="M1157 360l24 24 40-48" fill="none" stroke="#ffffff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M750 610c70-90 162-134 286-134 92 0 174 27 216 77" stroke="#059669" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <circle cx="750" cy="610" r="18" fill="#059669"/>
+  <circle cx="1040" cy="476" r="18" fill="#059669"/>
+  <circle cx="1250" cy="610" r="18" fill="#059669"/>
+  <text x="220" y="760" fill="#0f172a" font-size="44" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Share Downloaded Instagram Reels</text>
+  <text x="220" y="810" fill="#475569" font-size="24" font-family="Segoe UI, Arial, sans-serif">Fast, safe sharing for mobile and desktop</text>
+</svg>

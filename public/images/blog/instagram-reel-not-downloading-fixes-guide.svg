@@ -1,0 +1,17 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" rx="40" fill="#0f172a" />
+  <rect x="60" y="60" width="1080" height="510" rx="32" fill="#111827" stroke="#10b981" stroke-width="6" />
+  <path d="M240 180C240 160 260 140 280 140H632C652 140 672 160 672 180V374C672 394 652 414 632 414H280C260 414 240 394 240 374V180Z" fill="#0f172a" stroke="#22c55e" stroke-width="6" />
+  <path d="M420 268L520 322L420 376V268Z" fill="#10b981" />
+  <rect x="748" y="164" width="320" height="30" rx="15" fill="#111827" />
+  <rect x="748" y="216" width="240" height="22" rx="11" fill="#1f2937" />
+  <rect x="748" y="258" width="260" height="22" rx="11" fill="#1f2937" />
+  <rect x="748" y="300" width="200" height="22" rx="11" fill="#1f2937" />
+  <text x="96" y="160" fill="#ecfccb" font-family="Inter, Arial, sans-serif" font-size="52" font-weight="700">Instagram Reel</text>
+  <text x="96" y="230" fill="#f8fafc" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="800">Not Downloading?</text>
+  <text x="96" y="310" fill="#cbd5e1" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="500">Easy fixes, privacy checks, and trusted safe download tips.</text>
+  <text x="96" y="380" fill="#94a3b8" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="500">Troubleshoot app issues, internet stability, creator settings,</text>
+  <text x="96" y="414" fill="#94a3b8" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="500">and use a trusted Instagram Reel Downloader safely.</text>
+  <rect x="96" y="454" width="360" height="10" rx="5" fill="#10b981" />
+  <rect x="96" y="484" width="520" height="8" rx="4" fill="#0f172a" />
+</svg>

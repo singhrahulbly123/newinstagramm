@@ -1,0 +1,31 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" rx="48" fill="#F7FAF9"/>
+  <rect x="90" y="90" width="1420" height="720" rx="36" fill="url(#bg)"/>
+  <circle cx="1230" cy="240" r="180" fill="#D1FAE5" fill-opacity="0.55"/>
+  <circle cx="320" cy="650" r="220" fill="#A7F3D0" fill-opacity="0.3"/>
+  <rect x="230" y="250" width="300" height="360" rx="34" fill="#0F172A"/>
+  <rect x="260" y="282" width="240" height="180" rx="24" fill="#111827"/>
+  <rect x="286" y="320" width="188" height="108" rx="18" fill="#34D399"/>
+  <path d="M318 386L358 346L392 380L438 328" stroke="#ECFDF5" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="284" y="476" width="188" height="18" rx="9" fill="#F8FAFC"/>
+  <rect x="284" y="512" width="126" height="14" rx="7" fill="#CBD5E1"/>
+  <rect x="760" y="260" width="420" height="320" rx="36" fill="#FFFFFF"/>
+  <rect x="792" y="292" width="356" height="188" rx="26" fill="#F8FAFC"/>
+  <rect x="820" y="320" width="130" height="132" rx="20" fill="#10B981"/>
+  <path d="M864 404L894 374L928 410L972 352" stroke="#ECFDF5" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="820" y="500" width="220" height="16" rx="8" fill="#0F172A"/>
+  <rect x="820" y="532" width="160" height="12" rx="6" fill="#94A3B8"/>
+  <path d="M1110 320H1270" stroke="#0F766E" stroke-width="22" stroke-linecap="round"/>
+  <path d="M1190 250V390" stroke="#0F766E" stroke-width="22" stroke-linecap="round"/>
+  <rect x="1080" y="420" width="260" height="84" rx="22" fill="#0F766E"/>
+  <path d="M1130 462H1290" stroke="#ECFDF5" stroke-width="18" stroke-linecap="round"/>
+  <path d="M1110 520C1148 480 1184 480 1222 520" stroke="#10B981" stroke-width="14" stroke-linecap="round"/>
+  <text x="220" y="760" fill="#0F172A" font-family="Segoe UI, Arial, sans-serif" font-size="54" font-weight="700">Private Reels, Safe Choices</text>
+  <text x="220" y="818" fill="#475569" font-family="Segoe UI, Arial, sans-serif" font-size="30">Learn what works, what does not, and how to stay respectful.</text>
+  <defs>
+    <linearGradient id="bg" x1="128" y1="126" x2="1464" y2="784" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ECFDF5"/>
+      <stop offset="1" stop-color="#D1FAE5"/>
+    </linearGradient>
+  </defs>
+</svg>

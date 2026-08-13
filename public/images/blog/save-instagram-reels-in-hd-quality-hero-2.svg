@@ -1,0 +1,32 @@
+<svg width="1200" height="628" viewBox="0 0 1200 628" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f766e" />
+      <stop offset="100%" stop-color="#14b8a6" />
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.56" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="628" rx="48" fill="url(#bg)" />
+  <path d="M1200 0H0V628H1200V0Z" fill="url(#shine)" opacity="0.18" />
+  <circle cx="218" cy="158" r="112" fill="#ffffff" opacity="0.18" />
+  <circle cx="335" cy="480" r="88" fill="#ffffff" opacity="0.12" />
+  <rect x="760" y="120" width="320" height="320" rx="42" fill="#ffffff" opacity="0.18" />
+  <rect x="775" y="135" width="290" height="220" rx="28" fill="#0f766e" />
+  <path d="M861 196C861 185.715 869.715 177 880 177H1008C1018.28 177 1027 185.715 1027 196V292C1027 302.285 1018.28 311 1008 311H880C869.715 311 861 302.285 861 292V196Z" fill="#14b8a6" />
+  <path d="M861 326C861 315.715 869.715 307 880 307H1008C1018.28 307 1027 315.715 1027 326V388C1027 398.285 1018.28 407 1008 407H880C869.715 407 861 398.285 861 388V326Z" fill="#ffffff" opacity="0.9" />
+  <path d="M923 225C930.732 225 937 231.268 937 239C937 246.732 930.732 253 923 253C915.268 253 909 246.732 909 239C909 231.268 915.268 225 923 225Z" fill="#0f766e" />
+  <rect x="880" y="335" width="60" height="18" rx="9" fill="#0f766e" />
+  <rect x="964" y="335" width="120" height="18" rx="9" fill="#0f766e" />
+  <path d="M646 220C646 196.908 663.908 179 687 179H840C863.092 179 881 196.908 881 220V420C881 443.092 863.092 461 840 461H687C663.908 461 646 443.092 646 420V220Z" fill="#ffffff" opacity="0.18" />
+  <path d="M678 248H828C838.493 248 847 256.507 847 267V364C847 374.493 838.493 383 828 383H678C667.507 383 659 374.493 659 364V267C659 256.507 667.507 248 678 248Z" fill="#ffffff" opacity="0.88" />
+  <path d="M701 282H805C814.493 282 823 290.507 823 301V330C823 340.493 814.493 349 805 349H701C691.507 349 683 340.493 683 330V301C683 290.507 691.507 282 701 282Z" fill="#0f766e" />
+  <path d="M707 310L737 301L770 332L792 317L824 343" stroke="#14b8a6" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="110" y="176" fill="#ffffff" font-family="Inter, sans-serif" font-size="56" font-weight="700">Save Reels</text>
+  <text x="110" y="250" fill="#e0f2f1" font-family="Inter, sans-serif" font-size="40" font-weight="600">in HD quality today</text>
+  <text x="110" y="338" fill="#ffffff" font-family="Inter, sans-serif" font-size="20" letter-spacing="0.12em">Online downloader • High resolution • No login</text>
+  <path d="M110 420H420C438.091 420 453 434.909 453 453V520C453 538.091 438.091 553 420 553H110C91.9086 553 77 538.091 77 520V453C77 434.909 91.9086 420 110 420Z" fill="#ffffff" opacity="0.15" />
+  <path d="M124 436H406C411.523 436 416 440.477 416 446V512C416 517.523 411.523 522 406 522H124C118.477 522 114 517.523 114 512V446C114 440.477 118.477 436 124 436Z" fill="#ffffff" />
+</svg>

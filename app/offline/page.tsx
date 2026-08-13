@@ -1,0 +1,1 @@
+export default function OfflinePage() { return <main className="mx-auto min-h-[70vh] max-w-3xl px-4 py-20 text-center"><h1 className="text-4xl font-black text-slate-950">You are offline</h1><p className="mt-4 text-slate-600">Reconnect to the internet to process Instagram links and media files.</p></main>; }
