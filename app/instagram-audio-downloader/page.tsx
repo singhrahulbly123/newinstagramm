@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import AudioDownloader from '../../components/audio/AudioDownloader';
+import { makeFAQSchema } from '../../lib/schemas';
 
 export const metadata: Metadata = {
   title: 'Instagram Audio Downloader – Extract Audio from Public Reels | globltools',
@@ -152,17 +153,7 @@ export default function AudioPage() {
                     },
                   ],
                 },
-                {
-                  '@type': 'FAQPage',
-                  mainEntity: faqItems.map((item) => ({
-                    '@type': 'Question',
-                    name: item.question,
-                    acceptedAnswer: {
-                      '@type': 'Answer',
-                      text: item.answer,
-                    },
-                  })),
-                },
+                makeFAQSchema(faqItems),
               ],
             }),
           }}

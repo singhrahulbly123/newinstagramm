@@ -1,5 +1,6 @@
 import DownloadHero from '../components/DownloadHero';
 import type { Metadata } from 'next';
+import { makeFAQSchema } from '../../lib/schemas';
 
 export const metadata: Metadata = {
   title: 'Instagram Video Downloader – Save Public Videos | globltools',
@@ -15,6 +16,11 @@ export const metadata: Metadata = {
     url: 'https://globltools.com/instagram-video-downloader',
     siteName: 'globltools',
     locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Instagram Video Downloader – Save Public Videos',
+    description: 'Preview and save video files made available for supported public Instagram posts.',
   },
 };
 
@@ -85,17 +91,7 @@ export default function VideoDownloaderPage() {
                       },
                     ],
                   },
-                  {
-                    '@type': 'FAQPage',
-                    mainEntity: faqItems.map((item) => ({
-                      '@type': 'Question',
-                      name: item.question,
-                      acceptedAnswer: {
-                        '@type': 'Answer',
-                        text: item.answer,
-                      },
-                    })),
-                  },
+                  makeFAQSchema(faqItems),
                 ],
               }),
             }}

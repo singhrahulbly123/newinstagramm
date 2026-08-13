@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import StoryDownloader from '../../components/story/StoryDownloader';
+import { makeFAQSchema } from '../../lib/schemas';
 
 export const metadata: Metadata = {
   title: 'Instagram Story Downloader – View and Download Public Stories | globltools',
@@ -12,6 +13,11 @@ export const metadata: Metadata = {
     url: 'https://globltools.com/instagram-story-downloader',
     siteName: 'globltools',
     locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Instagram Story Downloader – View and Download Public Stories',
+    description: 'Check active public Instagram Stories and save available photo or video slides before they expire.',
   },
   alternates: {
     canonical: 'https://globltools.com/instagram-story-downloader',
@@ -98,17 +104,7 @@ export default function StoryPage() {
                           },
                         ],
                       },
-                      {
-                        '@type': 'FAQPage',
-                        mainEntity: faqItems.map((item) => ({
-                          '@type': 'Question',
-                          name: item.question,
-                          acceptedAnswer: {
-                            '@type': 'Answer',
-                            text: item.answer,
-                          },
-                        })),
-                      },
+                      makeFAQSchema(faqItems),
                     ],
                   }),
                 }}

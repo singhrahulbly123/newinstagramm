@@ -1,5 +1,6 @@
 import DownloadHero from '../components/DownloadHero';
 import type { Metadata } from 'next';
+import { makeFAQSchema } from '../../lib/schemas';
 
 export const metadata: Metadata = {
   title: 'Instagram Reel Downloader – Save Public Reels | globltools',
@@ -15,6 +16,11 @@ export const metadata: Metadata = {
     url: 'https://globltools.com/instagram-reel-downloader',
     siteName: 'globltools',
     locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Instagram Reel Downloader – Save Public Reels',
+    description: 'Preview and save the available MP4 from a supported public Instagram Reel link.',
   },
 };
 
@@ -86,17 +92,7 @@ export default function ReelDownloaderPage() {
                       },
                     ],
                   },
-                  {
-                    '@type': 'FAQPage',
-                    mainEntity: faqItems.map((item) => ({
-                      '@type': 'Question',
-                      name: item.question,
-                      acceptedAnswer: {
-                        '@type': 'Answer',
-                        text: item.answer,
-                      },
-                    })),
-                  },
+                  makeFAQSchema(faqItems),
                 ],
               }),
             }}

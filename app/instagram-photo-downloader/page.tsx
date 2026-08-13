@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
+import { makeFAQSchema } from '../../lib/schemas';
 
 const PhotoDownloader = dynamic(() => import('../components/photo/PhotoDownloader'), {
   ssr: true,
@@ -162,17 +163,7 @@ export default function PhotoPage() {
                     },
                   ],
                 },
-                {
-                  '@type': 'FAQPage',
-                  mainEntity: faqItems.map((item) => ({
-                    '@type': 'Question',
-                    name: item.question,
-                    acceptedAnswer: {
-                      '@type': 'Answer',
-                      text: item.answer,
-                    },
-                  })),
-                },
+                makeFAQSchema(faqItems),
               ],
             }),
           }}

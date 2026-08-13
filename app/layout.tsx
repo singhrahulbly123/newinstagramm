@@ -32,13 +32,6 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'globltools public Instagram media utilities' }],
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Instagram Downloader for Reels, Videos, Photos & Stories | globltools',
-    description:
-      'Globltools makes it simple to download public Instagram reels, videos, photos, stories, and audio directly from your browser in a few steps.',
-    images: ['/opengraph-image'],
-  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
